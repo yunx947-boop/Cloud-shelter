@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5f0eb"/>
+      <stop offset="1" stop-color="#e8e0da"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="300" height="400" fill="url(#bg)"/>
+
+  <!-- 云：她抬头看的那朵 -->
+  <g fill="#b5c4c9" opacity="0.4">
+    <ellipse cx="150" cy="66" rx="44" ry="16"/>
+    <ellipse cx="120" cy="72" rx="24" ry="12"/>
+    <ellipse cx="180" cy="72" rx="24" ry="12"/>
+  </g>
+
+  <!-- 单行道：唯一一条路 -->
+  <rect x="44" y="366" width="212" height="16" rx="8" fill="#d9d0c5" opacity="0.26"/>
+  <line x1="44" y1="374" x2="256" y2="374" stroke="#d9d0c5" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- 身体（肩） -->
+  <ellipse cx="150" cy="322" rx="70" ry="46" fill="#ffffff" opacity="0.95"/>
+
+  <!-- 头 -->
+  <circle cx="150" cy="210" r="62" fill="#ffffff"/>
+
+  <!-- 猫耳 -->
+  <path d="M104 152 L84 70 L152 132 Z" fill="#ffffff" stroke="#e8d5c4" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M196 152 L216 70 L148 132 Z" fill="#ffffff" stroke="#e8d5c4" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M112 144 L100 92 L138 132 Z" fill="#f5d0e0"/>
+  <path d="M188 144 L200 92 L162 132 Z" fill="#f5d0e0"/>
+
+  <!-- 眼睛 -->
+  <circle cx="128" cy="214" r="5.5" fill="#4a4a4a"/>
+  <circle cx="172" cy="214" r="5.5" fill="#4a4a4a"/>
+  <circle cx="126.5" cy="211.5" r="1.7" fill="#ffffff"/>
+  <circle cx="170.5" cy="211.5" r="1.7" fill="#ffffff"/>
+
+  <!-- 腮红 -->
+  <circle cx="116" cy="232" r="9" fill="#f0c4d8" opacity="0.5"/>
+  <circle cx="184" cy="232" r="9" fill="#f0c4d8" opacity="0.5"/>
+
+  <!-- 微笑 -->
+  <path d="M142 238 Q150 247 158 238" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+</svg>

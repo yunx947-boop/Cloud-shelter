@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm *)",
+      "PowerShell(Start-Process \"http://localhost:3001\")",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Get-ChildItem -Recurse -File -Force app, components, lib, public -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notmatch 'node_modules' } | Select-Object FullName, Length | Format-Table -AutoSize)",
+      "PowerShell($url = \"https://music.163.com/api/search/get/web?s=\" + [uri]::EscapeDataString\\(\"另一种语言\"\\) + \"&type=1000&limit=30&offset=0\"; try { $r = Invoke-RestMethod -Uri $url -Method Get -Headers @{ \"Referer\" = \"https://music.163.com/\"; \"User-Agent\" = \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" } -TimeoutSec 20; $r | ConvertTo-Json -Depth 6 } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($url = \"https://music.163.com/api/search/get/web?s=\" + [uri]::EscapeDataString\\(\"With you around 塞壬唱片\"\\) + \"&type=1&limit=30&offset=0\"; try { $r = Invoke-RestMethod -Uri $url -Method Get -Headers @{ \"Referer\" = \"https://music.163.com/\"; \"User-Agent\" = \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" } -TimeoutSec 20; $songs = $r.result.songs; foreach \\($s in $songs\\) { $artists = \\($s.artists | ForEach-Object { $_.name }\\) -join \"/\"; \"{0} | {1} | {2} | album:{3}\" -f $s.id, $s.name, $artists, $s.album.name } } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($url = \"https://music.163.com/api/song/enhance/player/url?ids=%5B3373534451%5D&br=320000\"; try { $r = Invoke-RestMethod -Uri $url -Method Get -Headers @{ \"Referer\" = \"https://music.163.com/\"; \"User-Agent\" = \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" } -TimeoutSec 20; $r.data | ForEach-Object { \"id=$\\($_.id\\) code=$\\($_.code\\) size=$\\($_.size\\) type=$\\($_.type\\)\" ; if \\($_.url\\) { \"url=$\\($_.url.Substring\\(0, [Math]::Min\\(80, $_.url.Length\\)\\)\\)...\" } } } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($url = \"https://music.163.com/outchain/player?type=2&id=3373534451&auto=0&height=66\"; try { $resp = Invoke-WebRequest -Uri $url -Method Get -Headers @{ \"Referer\" = \"https://music.163.com/\"; \"User-Agent\" = \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" } -TimeoutSec 20; \"Status: $\\($resp.StatusCode\\)\"; \"Length: $\\($resp.Content.Length\\)\"; $resp.Content.Substring\\(0, [Math]::Min\\(1500, $resp.Content.Length\\)\\) } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell($url = \"https://music.163.com/outchain/player?type=2&id=3373534451&auto=0&height=66\"; $out = curl.exe -s -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" -e \"https://music.163.com/\" $url; \"LENGTH: $\\($out.Length\\)\"; $out.Substring\\(0, [Math]::Min\\(2000, $out.Length\\)\\))"
+    ]
+  }
+}
