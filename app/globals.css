@@ -185,3 +185,76 @@
   border: 2px solid #ffffff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
+
+/* ===== Markdown 正文排版 ===== */
+.markdown {
+  color: #4a4a4a;
+  font-weight: 300;
+}
+.markdown > :first-child {
+  margin-top: 0;
+}
+.markdown p {
+  margin: 0 0 1.25em;
+  line-height: 1.9;
+}
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-family: 'var(--font-serif)', 'Songti SC', 'STSong', 'SimSun', serif;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 1.5em 0 0.7em;
+}
+.markdown h1 {
+  font-size: 1.4rem;
+}
+.markdown h2 {
+  font-size: 1.25rem;
+}
+.markdown h3 {
+  font-size: 1.1rem;
+}
+.markdown ul,
+.markdown ol {
+  padding-left: 1.4em;
+  margin: 0 0 1.25em;
+}
+.markdown li {
+  margin: 0.35em 0;
+}
+.markdown ul {
+  list-style: disc;
+}
+.markdown ol {
+  list-style: decimal;
+}
+.markdown blockquote {
+  border-left: 2px solid #e8d5c4;
+  padding-left: 1em;
+  margin: 0 0 1.25em;
+  color: #6e6e6e;
+}
+.markdown code {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+.markdown a {
+  color: #6f5b95;
+  text-decoration: underline;
+}
+.markdown strong {
+  font-weight: 500;
+}
+.markdown table {
+  border-collapse: collapse;
+  margin: 0 0 1.25em;
+  font-size: 0.95em;
+}
+.markdown th,
+.markdown td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5em 0.8em;
+}
