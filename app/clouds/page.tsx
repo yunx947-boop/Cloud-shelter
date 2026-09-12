@@ -23,7 +23,7 @@ export default function CloudsPage() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[50%_30%]"
         />
         {/* 悬浮返回链接（毛玻璃小胶囊，保证在图上可读） */}
         <div className="absolute left-5 top-5 z-10">
