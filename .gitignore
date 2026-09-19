@@ -38,3 +38,11 @@ _v0_tmp/
 /主页.zip
 /新建文件夹 (2)/
 .dev.log
+
+# 自动生成（封面从 MP3 标签导出，不必入库）
+/public/images/covers/
+
+# 本机工具 / 编辑器配置（换台机器会重新生成）
+.workbuddy/
+.claude/
+.obsidian/
