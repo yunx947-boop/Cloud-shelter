@@ -349,7 +349,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
 
         {failed && (
           <p className="mt-3 text-center text-xs font-light leading-relaxed text-ink-faint">
-            音频加载失败，请确认 public/audio/ 下的文件是完整可播放的 mp3 / flac。
+            音频加载失败，可能是网络或音频源暂时不可用，稍后再试。
           </p>
         )}
       </footer>
@@ -358,7 +358,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
       <audio
         ref={audioRef}
         src={track.src}
-        preload="auto"
+        preload="metadata"
         className="hidden"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}

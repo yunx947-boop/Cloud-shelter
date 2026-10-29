@@ -1,0 +1,26 @@
+[
+  {
+    "src": "https://cdn.cloud-shelter.top/audio/buckethead-the-left-panel.mp3",
+    "title": "The Left Panel",
+    "artist": "Buckethead",
+    "album": "The Left Panel",
+    "cover": "/images/covers/Buckethead%20-%20The%20Left%20Panel.jpg",
+    "duration": 1158
+  },
+  {
+    "src": "https://cdn.cloud-shelter.top/audio/with-you-around.mp3",
+    "title": "With You Around (手游《明日方舟》印象曲)",
+    "artist": "BANKS/塞壬唱片-MSR",
+    "album": "With You Around (手游《明日方舟》印象曲)",
+    "cover": "/images/covers/with-you-around.jpg",
+    "duration": 233
+  },
+  {
+    "src": "https://cdn.cloud-shelter.top/audio/ji-xinan-lin-lu-xing.flac",
+    "title": "冀西南林路行 (专辑全长)",
+    "artist": "万能青年旅店",
+    "album": "冀西南林路行",
+    "cover": "/images/covers/%E4%B8%87%E8%83%BD%E9%9D%92%E5%B9%B4%E6%97%85%E5%BA%97%20-%20%E5%86%80%E8%A5%BF%E5%8D%97%E6%9E%97%E8%B7%AF%E8%A1%8C%20(%E4%B8%93%E8%BE%91%E5%85%A8%E9%95%BF).jpg",
+    "duration": 2662
+  }
+]

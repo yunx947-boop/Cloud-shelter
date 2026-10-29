@@ -39,8 +39,11 @@ _v0_tmp/
 /新建文件夹 (2)/
 .dev.log
 
-# 自动生成（封面从 MP3 标签导出，不必入库）
-/public/images/covers/
+# 音频已托管到外部 CDN（地址见 content/tracks.json），本机副本不入库
+/public/audio/
+
+# 封面改为随库入库：音频搬到 CDN 后无法再从 ID3 导出，且总共仅 2.1MB
+# （原规则 /public/images/covers/ 已取消）
 
 # 本机工具 / 编辑器配置（换台机器会重新生成）
 .workbuddy/
