@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint:md": "markdownlint-cli2 \"content/**/*.md\""
+    "lint:md": "markdownlint-cli2 \"content/**/*.md\"",
+    "new-track": "node scripts/new-track.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
