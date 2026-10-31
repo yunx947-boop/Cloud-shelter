@@ -26,6 +26,9 @@ export default function ArticleCatalog({
     title: a.title,
     desc: a.desc,
     href: `${basePath}/${a.slug}`,
+    meta: [a.date.replace(/-/g, '.'), a.minutes ? `约 ${a.minutes} 分钟` : '']
+      .filter(Boolean)
+      .join(' · '),
   }))
 
   return (

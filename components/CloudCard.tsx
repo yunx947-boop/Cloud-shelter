@@ -3,10 +3,12 @@ import type { CloudIsland } from '@/lib/constants'
 
 interface CloudCardProps {
   island: CloudIsland
+  /** 在新标签页打开：云岛导航用；文章目录里的卡片保持当前页跳转 */
+  newTab?: boolean
 }
 
 /** 云岛导航卡片：毛玻璃 + hover 上浮；筹备中条目不可点击 */
-export default function CloudCard({ island }: CloudCardProps) {
+export default function CloudCard({ island, newTab = false }: CloudCardProps) {
   const inner = (
     <>
       {/* 图标 32px */}
@@ -21,6 +23,10 @@ export default function CloudCard({ island }: CloudCardProps) {
       <span className="mt-1 block text-sm font-light leading-relaxed text-ink-sub">
         {island.desc}
       </span>
+      {/* 日期 · 阅读时长等小字 */}
+      {island.meta && (
+        <span className="mt-2 block text-[11px] font-light text-ink-faint">{island.meta}</span>
+      )}
     </>
   )
 
@@ -37,7 +43,12 @@ export default function CloudCard({ island }: CloudCardProps) {
   }
 
   return (
-    <Link href={island.href} className="glass glass-hover block h-full px-4 py-5 text-center">
+    <Link
+      href={island.href}
+      target={newTab ? '_blank' : undefined}
+      rel={newTab ? 'noopener noreferrer' : undefined}
+      className="glass glass-hover block h-full px-4 py-5 text-center"
+    >
       {inner}
     </Link>
   )

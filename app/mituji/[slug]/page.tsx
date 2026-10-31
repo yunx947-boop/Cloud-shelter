@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ArticleContent from '@/components/ArticleContent'
-import { getArticle, getArticles } from '@/lib/articles'
+import { getAdjacent, getArticle, getArticles } from '@/lib/articles'
 
 export function generateStaticParams() {
   return getArticles('mituji').map((a) => ({ slug: a.slug }))
@@ -29,5 +29,8 @@ export default async function MitujiArticlePage({
   const { slug } = await params
   const article = getArticle('mituji', slug)
   if (!article) notFound()
-  return <ArticleContent article={article} backHref="/mituji" backLabel="迷途集" />
+  const { prev, next } = getAdjacent('mituji', slug)
+  return (
+    <ArticleContent article={article} backHref="/mituji" backLabel="迷途集" prev={prev} next={next} />
+  )
 }

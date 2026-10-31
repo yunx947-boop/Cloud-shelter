@@ -49,7 +49,7 @@ export default function CloudsPage() {
           <ul className="mx-auto grid w-full max-w-6xl list-none grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {cloudIslands.map((island, i) => (
               <Reveal key={island.title} as="li" delay={i * 0.08} className="w-full">
-                <CloudCard island={island} />
+                <CloudCard island={island} newTab />
               </Reveal>
             ))}
           </ul>

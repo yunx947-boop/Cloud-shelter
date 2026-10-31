@@ -4,6 +4,8 @@ export interface CloudIsland {
   title: string
   desc: string
   href: string
+  /** 卡片底部的小字，如「2026.09.01 · 约 2 分钟」；仅文章卡片用 */
+  meta?: string
   /** 标记为“还在路上”的占位入口（不可点击） */
   comingSoon?: boolean
 }
