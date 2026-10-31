@@ -10,7 +10,7 @@
 
 | | 渲染器 | 用在哪 |
 | --- | --- | --- |
-| 站点 | `react-markdown` v10 + `remark-gfm` v4 | 线上文章页 `/mituji/xxx`、`/danxiangshu/xxx` |
+| 站点 | `react-markdown` v10 + `remark-gfm` v4 | 线上文章页 `/article/xxx` |
 | 编辑器 | Obsidian 自带解析器 | 你本地写稿时的预览 |
 
 **两者能力不一样**，所以"Obsidian 里好看"不代表"线上好看"。下面这张表是关键：
@@ -82,7 +82,7 @@
 [站内跳转](/clouds)
 ```
 
-站里链接是紫色下划线（`#6f5b95`）。站内路径用 `/mituji/zoudiu` 这种相对根路径。
+站里链接是紫色下划线（`#6f5b95`）。站内路径用 `/article/zoudiu` 这种相对根路径。
 
 ### 2.6 图片
 
@@ -172,7 +172,7 @@
 
 ## 4. 本项目的 frontmatter
 
-只有 `content/mituji/` 和 `content/danxiangshu/` 下的文件才会发布，且**必须**以 frontmatter 开头：
+只有 `content/articles/` 下的文件才会发布，且**必须**以 frontmatter 开头：
 
 ```markdown
 ---
@@ -185,7 +185,7 @@ desc: 走丢本身，也是一种抵达
 | --- | --- | --- |
 | `title` | 是 | 目录卡片标题、详情页大标题、浏览器标签 |
 | `desc` | 是 | 目录卡片摘要、详情页副标题、SEO 描述 |
-| `date` | 是 | 发布日期 `'YYYY-MM-DD'`，决定排序与 `/road` 上的位置 |
+| `date` | 是 | 发布日期 `'YYYY-MM-DD'`，决定在单行道上的位置 |
 
 - 漏 `title` → 用文件名当标题
 - 漏 `desc` → 摘要为空
@@ -287,4 +287,4 @@ desc: 一句话摘要，会显示在目录卡片上
 - 列表项二
 ```
 
-把它存成 `content/mituji/你的-slug.md`，刷新 `npm run dev` 就能看到效果。
+把它存成 `content/articles/你的-slug.md`，刷新 `npm run dev` 就能看到效果。

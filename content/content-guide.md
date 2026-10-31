@@ -20,18 +20,19 @@
 
 ### 1.1 放在哪个目录
 
-| 板块 | 目录 | 首页云岛 |
-| --- | --- | --- |
-| 迷途集 | `content/mituji/` | 🪶 一些没想完的话 |
-| 单向书 | `content/danxiangshu/` | 📖 迷惘中的知识碎片 |
+所有文章都放在同一个目录：
 
-只有这两个目录会被读取，放别的地方不会出现。
+```text
+content/articles/
+```
 
-📄 **现成模板**：`content/文章模板.md` —— 复制到目标目录、改成拼音文件名、替换 `title` / `desc`、删掉开头的说明引用即可。
+只有这个目录会被读取，放别的地方不会出现在站点上。**文章不再分板块**——它们按发布时间排成一条线，出现在单行道页 `/clouds` 上。
+
+📄 **现成模板**：`content/文章模板.md` —— 复制到 `content/articles/`、改成拼音文件名、替换 `title` / `desc` / `date`、删掉开头的说明引用即可。
 
 ### 1.2 文件名就是 URL
 
-`content/mituji/zoudiu.md` → `/mituji/zoudiu`
+`content/articles/zoudiu.md` → `/article/zoudiu`
 
 - **建议**：小写拼音 + 连字符，如 `tingzai-lukou.md`
 - 中文文件名能用，但 URL 会被转义成 `%E4%B8%AD...`，又长又难记
@@ -51,7 +52,7 @@ desc: 走丢本身，也是一种抵达
 | --- | --- | --- |
 | `title` | 是 | 目录卡片标题 + 详情页大标题 |
 | `desc` | 是 | 目录卡片摘要 + 详情页副标题 |
-| `date` | 是 | 发布日期 `YYYY-MM-DD`，决定列表顺序与 `/road` 上的位置 |
+| `date` | 是 | 发布日期 `YYYY-MM-DD`，决定单行道上的位置 |
 
 漏了 `title` 会把 slug 当标题显示，漏了 `desc` 则摘要为空。
 
@@ -59,7 +60,7 @@ desc: 走丢本身，也是一种抵达
 
 按 frontmatter 里的 **`date` 倒序**（新文章在前）；同一天则按文件名升序。
 
-`/road` 页面用**正序**（早 → 晚），像一条从过去走到今天的路。文章页底部的「上一篇 / 下一篇」也按这个时间顺序，仅限于同一板块内。
+单行道页 `/clouds` 用**正序**（早 → 晚），像一条从过去走到今天的路。文章页底部的「上一篇 / 下一篇」也按这个全局时间顺序。
 
 ```text
 date: '2026-09-03'
@@ -73,15 +74,9 @@ GFM：标题、粗斜体、列表、引用、链接、表格、行内代码、�
 
 样式已由 `app/globals.css` 的 `.markdown` 统一控制，**正文里不要写行内 style 或 HTML**。
 
-### 1.6 改板块副标题要同步三处
+### 1.6 单行道页的文案在哪
 
-这是历史上最容易漏的地方：
-
-1. `lib/constants.ts` → `cloudIslands` 里对应条目的 `desc`
-2. 板块页面的 `metadata.description`（如 `app/mituji/page.tsx`）
-3. 该页面传给 `<ArticleCatalog subtitle="..." />` 的值
-
-三处不一致，同一个副标题会在线上和首页显示成两种样子。
+单行道页 `/clouds` 上的模块名与说明，写在 `app/clouds/page.tsx` 里；功能入口卡片（留声机 / 树洞 / 关于）的资料写在 `lib/constants.ts` 的 `cloudIslands`。改名字时两处都要看，别只改一处。
 
 ### 1.7 提交前跑一次 lint
 
@@ -91,12 +86,17 @@ npm run lint:md
 
 配置文件是 `.markdownlint.json`。常见报错：标题前后缺空行、列表前后缺空行、代码块没标注语言。
 
-### 1.8 新增一个全新板块（少见）
+### 1.8 关于旧的板块路径
 
-1. `lib/articles.ts` 里 `island` 的联合类型加上新名字
-2. 新建 `app/<板块名>/page.tsx` 和 `app/<板块名>/[slug]/page.tsx`
-3. `lib/constants.ts` 的 `cloudIslands` 加一条导航（原来的"预留"正好可以换上）
-4. `content/<板块名>/` 建目录
+`/mituji/...`、`/danxiangshu/...`、`/road` 都已在 `next.config.js` 里做了永久跳转：
+
+| 旧路径 | 跳到 |
+| --- | --- |
+| `/mituji/:slug` | `/article/:slug` |
+| `/danxiangshu/:slug` | `/article/:slug` |
+| `/mituji`、`/danxiangshu`、`/road` | `/clouds` |
+
+以后要改文章 URL 结构，记得同步更新这张表。
 
 ---
 
