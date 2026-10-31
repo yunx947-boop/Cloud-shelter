@@ -27,6 +27,8 @@
 
 只有这两个目录会被读取，放别的地方不会出现。
 
+📄 **现成模板**：`content/文章模板.md` —— 复制到目标目录、改成拼音文件名、替换 `title` / `desc`、删掉开头的说明引用即可。
+
 ### 1.2 文件名就是 URL
 
 `content/mituji/zoudiu.md` → `/mituji/zoudiu`
