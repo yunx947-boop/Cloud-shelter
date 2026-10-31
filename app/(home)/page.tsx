@@ -1,45 +1,39 @@
-import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import { getAllArticles } from '@/lib/articles'
+import AudioPlayer from '@/components/AudioPlayer'
+import ChatInterface from '@/components/ChatInterface'
+import { getTracks } from '@/lib/tracks'
 
-/** 首页：整屏落地横幅 + 最近三步（最新三篇文章） */
-export default function HomePage() {
-  const latest = getAllArticles().slice(-3).reverse()
+/** 主页：全屏横幅 → 留声机 → 树洞 */
+export default async function HomePage() {
+  const tracks = await getTracks()
 
   return (
     <main>
       <Hero />
 
-      {latest.length > 0 && (
-        <section className="mx-auto w-full max-w-3xl px-6 pb-10 pt-20">
-          <Reveal>
-            <h2 className="text-center font-serif text-xl font-medium tracking-wide text-ink">最近三步</h2>
-            <p className="mt-2 text-center text-sm font-light text-ink-sub">路上新留下的脚印</p>
-          </Reveal>
+      <section className="mx-auto w-full max-w-4xl px-6 pt-20">
+        <Reveal>
+          <h2 className="text-center font-serif text-xl font-medium tracking-wide text-ink">留声机</h2>
+          <p className="mt-2 text-center text-sm font-light text-ink-sub">声音是另一种云</p>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-8">
+          <AudioPlayer tracks={tracks} />
+        </Reveal>
+      </section>
 
-          <ul className="mt-8 space-y-4">
-            {latest.map((a, i) => (
-              <Reveal as="li" key={a.slug} delay={i * 0.08}>
-                <Link href={`/article/${a.slug}`} className="glass glass-hover block px-5 py-4">
-                  <span className="text-xs font-light tracking-wide text-ink-faint">
-                    {a.date.replace(/-/g, '.')}
-                  </span>
-                  <span className="mt-1 block font-serif text-base font-normal text-ink">{a.title}</span>
-                  <span className="mt-1 block text-sm font-light leading-relaxed text-ink-sub">{a.desc}</span>
-                </Link>
-              </Reveal>
-            ))}
-          </ul>
-
-          <Reveal className="mt-8 text-center">
-            <Link href="/road" className="text-sm font-light text-ink-sub transition-colors hover:text-ink">
-              看整条路 →
-            </Link>
-          </Reveal>
-        </section>
-      )}
+      <section className="mx-auto w-full max-w-2xl px-6 pt-20">
+        <Reveal>
+          <h2 className="text-center font-serif text-xl font-medium tracking-wide text-ink">树洞</h2>
+          <p className="mt-2 text-center text-sm font-light text-ink-sub">说点什么，云在听</p>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-8">
+          <div className="flex h-[70vh] min-h-[480px] flex-col">
+            <ChatInterface />
+          </div>
+        </Reveal>
+      </section>
 
       <Footer />
     </main>
