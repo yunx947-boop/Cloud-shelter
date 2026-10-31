@@ -51,7 +51,7 @@ export default function ArticleContent({
             <div>
               {prev && (
                 <Link
-                  href={`${backHref}/${prev.slug}`}
+                  href={`/article/${prev.slug}`}
                   className="block text-ink-sub transition-colors hover:text-ink"
                 >
                   <span className="text-xs font-light text-ink-faint">← 上一篇</span>
@@ -62,7 +62,7 @@ export default function ArticleContent({
             <div className="text-right">
               {next && (
                 <Link
-                  href={`${backHref}/${next.slug}`}
+                  href={`/article/${next.slug}`}
                   className="block text-ink-sub transition-colors hover:text-ink"
                 >
                   <span className="text-xs font-light text-ink-faint">下一篇 →</span>

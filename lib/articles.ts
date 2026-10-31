@@ -2,9 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 
-/** 板块目录名，同时也是 URL 前缀 */
-export type Island = 'mituji' | 'danxiangshu'
-
 export interface Article {
   slug: string
   title: string
@@ -16,13 +13,7 @@ export interface Article {
   body: string
 }
 
-/** 带上所属板块的文章，用于跨板块按时间排开 */
-export interface ArticleWithIsland extends Article {
-  island: Island
-}
-
-const contentRoot = path.join(process.cwd(), 'content')
-const islands: Island[] = ['mituji', 'danxiangshu']
+const articlesDir = path.join(process.cwd(), 'content', 'articles')
 
 /**
  * frontmatter 里的日期可能是字符串，也可能被 YAML 解析成 Date 对象，
@@ -46,16 +37,21 @@ function readingMinutes(body: string) {
   return Math.max(1, Math.round(cjk / 350 + words / 200))
 }
 
-/** 读取某个云岛目录下的所有文章（未排序） */
-function readIsland(island: Island): Article[] {
-  const dir = path.join(contentRoot, island)
-  if (!fs.existsSync(dir)) return []
+/** 时间正序（早 → 晚）；同一天按 slug 升序，保证顺序稳定 */
+function oldestFirst(a: Article, b: Article) {
+  if (a.date !== b.date) return a.date < b.date ? -1 : 1
+  return a.slug.localeCompare(b.slug)
+}
+
+/** 读取 content/articles 下的全部文章，按时间正序 */
+export function getAllArticles(): Article[] {
+  if (!fs.existsSync(articlesDir)) return []
   return fs
-    .readdirSync(dir)
+    .readdirSync(articlesDir)
     .filter((f) => f.toLowerCase().endsWith('.md'))
     .map((f) => {
       const slug = f.replace(/\.md$/i, '')
-      const raw = fs.readFileSync(path.join(dir, f), 'utf8')
+      const raw = fs.readFileSync(path.join(articlesDir, f), 'utf8')
       const { data, content } = matter(raw)
       const body = content.trim()
       return {
@@ -67,37 +63,22 @@ function readIsland(island: Island): Article[] {
         body,
       }
     })
+    .sort(oldestFirst)
 }
 
-/** 时间倒序（新文章在前）；同一天按 slug 升序，保证顺序稳定 */
-function newestFirst(a: Article, b: Article) {
-  if (a.date !== b.date) return a.date < b.date ? 1 : -1
-  return a.slug.localeCompare(b.slug)
-}
-
-/** 某个云岛的文章：按发布时间倒序 */
-export function getArticles(island: Island): Article[] {
-  return readIsland(island).sort(newestFirst)
+/** 时间倒序（新文章在前），用于列表展示 */
+export function getArticles(): Article[] {
+  return [...getAllArticles()].reverse()
 }
 
 /** 按 slug 取单篇文章 */
-export function getArticle(island: Island, slug: string): Article | undefined {
-  return readIsland(island).find((a) => a.slug === slug)
+export function getArticle(slug: string): Article | undefined {
+  return getAllArticles().find((a) => a.slug === slug)
 }
 
-/** 所有板块的文章合成一条时间线：正序（早 → 晚），像一条路 */
-export function getAllArticles(): ArticleWithIsland[] {
-  return islands
-    .flatMap((island) => readIsland(island).map((a) => ({ ...a, island })))
-    .sort((a, b) => {
-      if (a.date !== b.date) return a.date < b.date ? -1 : 1
-      return a.slug.localeCompare(b.slug)
-    })
-}
-
-/** 时间上的上一篇（更早）与下一篇（更晚），仅在同一板块内 */
-export function getAdjacent(island: Island, slug: string): { prev?: Article; next?: Article } {
-  const list = getAllArticles().filter((a) => a.island === island)
+/** 时间上的上一篇（更早）与下一篇（更晚） */
+export function getAdjacent(slug: string): { prev?: Article; next?: Article } {
+  const list = getAllArticles()
   const i = list.findIndex((a) => a.slug === slug)
   if (i < 0) return {}
   return { prev: list[i - 1], next: list[i + 1] }

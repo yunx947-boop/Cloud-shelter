@@ -5,18 +5,21 @@ import CloudCard from '@/components/CloudCard'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
 import { cloudIslands } from '@/lib/constants'
+import { getAllArticles } from '@/lib/articles'
 
 export const metadata: Metadata = {
-  title: '云岛 · 云端庇护所',
-  description: '这里没有方向，只有方向上的你。',
+  title: '单行道 · 云端庇护所',
+  description: '所有文章按时间排开，只能往前走。',
 }
 
-/** 云岛页：全宽横幅 + 单行道上的六座云岛 */
+/** 单行道页：横幅 + 文章时间线（早 → 晚）+ 功能入口 */
 export default function CloudsPage() {
+  const articles = getAllArticles()
+
   return (
     <main>
-      {/* 全宽横幅（贴屏边，降低高度），返回链接悬浮其上 */}
-      <div className="relative h-[75vh] w-full overflow-hidden">
+      {/* 全宽横幅 + 悬浮返回 */}
+      <div className="relative h-[55vh] w-full overflow-hidden">
         <Image
           src="/images/clouds-banner.jpg"
           alt="云端之上"
@@ -25,28 +28,57 @@ export default function CloudsPage() {
           sizes="100vw"
           className="object-cover object-[50%_30%]"
         />
-        {/* 悬浮返回链接（毛玻璃小胶囊，保证在图上可读） */}
         <div className="absolute left-5 top-5 z-10">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 rounded-full bg-white/45 px-3 py-1 text-sm font-light text-ink backdrop-blur-md transition-colors hover:bg-white/60 hover:text-ink-sub"
           >
-            <span aria-hidden="true">←</span> 回到云端
+            <span aria-hidden="true">←</span> 回到主页
           </Link>
         </div>
       </div>
 
-      {/* 引言（紧凑，尽量留在第一屏） */}
       <Reveal>
-        <p className="px-6 pt-6 text-center font-serif text-[15px] font-light leading-[2] text-ink-sub">
-          这里没有方向，只有方向上的你。
-        </p>
+        <div className="px-6 pt-10 text-center">
+          <h1 className="font-serif text-2xl font-normal tracking-wide text-ink">单行道</h1>
+          <p className="mt-3 text-sm font-light text-ink-sub">所有文章按时间排开，只能往前走</p>
+        </div>
       </Reveal>
 
-      {/* 云岛卡片：桌面端单行 */}
-      <div className="pt-5 pb-12">
+      {/* 文章时间线：早 → 晚 */}
+      <section className="mx-auto w-full max-w-3xl px-6 pt-10">
+        <ol className="relative ml-1 border-l-2 border-dashed border-[#e8d5c4] pl-7">
+          {articles.map((a, i) => (
+            <Reveal as="li" key={a.slug} delay={i * 0.05} className="relative pb-9">
+              <span
+                aria-hidden="true"
+                className="absolute -left-[2.15rem] top-1.5 h-3 w-3 rounded-full border-2 border-[#e8d5c4] bg-cream"
+              />
+              <p className="text-xs font-light tracking-wide text-ink-faint">
+                {a.date.replace(/-/g, '.')} · 约 {a.minutes} 分钟
+              </p>
+              <Link
+                href={`/article/${a.slug}`}
+                className="mt-1 block font-serif text-lg font-normal text-ink transition-colors hover:text-[#6f5b95]"
+              >
+                {a.title}
+              </Link>
+              <p className="mt-1 text-sm font-light leading-relaxed text-ink-sub">{a.desc}</p>
+            </Reveal>
+          ))}
+        </ol>
+        {articles.length === 0 && (
+          <p className="text-center text-sm font-light text-ink-faint">路上还没有脚印。</p>
+        )}
+        <Reveal className="pt-2">
+          <p className="text-center font-serif text-sm font-light text-ink-mute">路还长，慢慢走。</p>
+        </Reveal>
+      </section>
+
+      {/* 功能入口 */}
+      <div className="pt-14 pb-12">
         <section className="px-6 lg:px-[60px]">
-          <ul className="mx-auto grid w-full max-w-6xl list-none grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <ul className="mx-auto grid w-full max-w-2xl list-none grid-cols-1 gap-5 sm:grid-cols-3">
             {cloudIslands.map((island, i) => (
               <Reveal key={island.title} as="li" delay={i * 0.08} className="w-full">
                 <CloudCard island={island} newTab />
@@ -54,15 +86,6 @@ export default function CloudsPage() {
             ))}
           </ul>
         </section>
-      </div>
-
-      {/* 收束语 */}
-      <div className="px-6 pb-14 lg:px-[60px]">
-        <Reveal>
-          <p className="text-center font-serif text-[15px] font-light leading-[2] text-ink-sub">
-            迷路也没关系——云端庇护所，随时欢迎你坐下歇歇。
-          </p>
-        </Reveal>
       </div>
 
       <Footer />

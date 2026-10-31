@@ -16,12 +16,9 @@ export const siteDescription = '单行道上，云在飘，你在走。'
 
 /** 首页云岛导航数据（可在此增删条目） */
 export const cloudIslands: CloudIsland[] = [
-  { icon: '🪶', title: '迷途集', desc: '一些没想完的话', href: '/mituji' },
-  { icon: '📖', title: '单向书', desc: '迷惘中的知识碎片', href: '/danxiangshu' },
   { icon: '🎧', title: '留声机', desc: '声音是另一种云', href: '/music' },
   { icon: '🌙', title: '树洞', desc: '说点什么，云在听', href: '/chat' },
   { icon: '🌫️', title: '关于', desc: '单向·追云', href: '/about' },
-  { icon: '🛣️', title: '单行道', desc: '所有文章按时间排开', href: '/road' },
 ]
 
 /** 页脚文案 */

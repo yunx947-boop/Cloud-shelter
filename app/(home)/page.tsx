@@ -2,12 +2,7 @@ import Link from 'next/link'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import { getAllArticles, type Island } from '@/lib/articles'
-
-const islandLabel: Record<Island, string> = {
-  mituji: '迷途集',
-  danxiangshu: '单向书',
-}
+import { getAllArticles } from '@/lib/articles'
 
 /** 首页：整屏落地横幅 + 最近三步（最新三篇文章） */
 export default function HomePage() {
@@ -26,10 +21,10 @@ export default function HomePage() {
 
           <ul className="mt-8 space-y-4">
             {latest.map((a, i) => (
-              <Reveal as="li" key={`${a.island}/${a.slug}`} delay={i * 0.08}>
-                <Link href={`/${a.island}/${a.slug}`} className="glass glass-hover block px-5 py-4">
+              <Reveal as="li" key={a.slug} delay={i * 0.08}>
+                <Link href={`/article/${a.slug}`} className="glass glass-hover block px-5 py-4">
                   <span className="text-xs font-light tracking-wide text-ink-faint">
-                    {a.date.replace(/-/g, '.')} · {islandLabel[a.island]}
+                    {a.date.replace(/-/g, '.')}
                   </span>
                   <span className="mt-1 block font-serif text-base font-normal text-ink">{a.title}</span>
                   <span className="mt-1 block text-sm font-light leading-relaxed text-ink-sub">{a.desc}</span>
