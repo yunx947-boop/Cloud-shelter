@@ -21,7 +21,7 @@ export const cloudIslands: CloudIsland[] = [
   { icon: '🎧', title: '留声机', desc: '声音是另一种云', href: '/music' },
   { icon: '🌙', title: '树洞', desc: '说点什么，云在听', href: '/chat' },
   { icon: '🌫️', title: '关于', desc: '单向·追云', href: '/about' },
-  { icon: '✦', title: '预留', desc: '更多可能', href: '#', comingSoon: true },
+  { icon: '🛣️', title: '单行道', desc: '所有文章按时间排开', href: '/road' },
 ]
 
 /** 页脚文案 */
