@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
-import CloudCard from '@/components/CloudCard'
 import ArticleCard from '@/components/ArticleCard'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import { cloudIslands } from '@/lib/constants'
 import { getAllArticles } from '@/lib/articles'
 
 export const metadata: Metadata = {
@@ -67,18 +65,7 @@ export default function CloudsPage() {
         </Reveal>
       </section>
 
-      {/* 功能入口 */}
-      <div className="pt-14 pb-12">
-        <section className="px-6 lg:px-[60px]">
-          <ul className="mx-auto grid w-full max-w-2xl list-none grid-cols-1 gap-5 sm:grid-cols-3">
-            {cloudIslands.map((island, i) => (
-              <Reveal key={island.title} as="li" delay={i * 0.08} className="w-full">
-                <CloudCard island={island} newTab />
-              </Reveal>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <div className="pb-12" />
 
       <Footer />
     </main>
