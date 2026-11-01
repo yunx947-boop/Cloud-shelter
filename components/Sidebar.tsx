@@ -18,7 +18,7 @@ export interface TagItem {
 }
 
 const navItems = [
-  { href: '/', label: '首页' },
+  { href: '/', label: '云端' },
   { href: '/clouds', label: '单行道' },
   { href: '/music', label: '留声机' },
   { href: '/chat', label: '树洞' },
