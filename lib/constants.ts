@@ -1,26 +1,3 @@
-/** 云岛卡片数据类型 */
-export interface CloudIsland {
-  icon: string
-  title: string
-  desc: string
-  href: string
-  /** 卡片底部的小字，如「2026.09.01 · 约 2 分钟」；仅文章卡片用 */
-  meta?: string
-  /** 标记为“还在路上”的占位入口（不可点击） */
-  comingSoon?: boolean
-}
-
-/** 站点元信息 */
-export const siteTitle = '云端庇护所'
-export const siteDescription = '单行道上，云在飘，你在走。'
-
-/** 首页云岛导航数据（可在此增删条目） */
-export const cloudIslands: CloudIsland[] = [
-  { icon: '🎧', title: '留声机', desc: '声音是另一种云', href: '/music' },
-  { icon: '🌙', title: '树洞', desc: '说点什么，云在听', href: '/chat' },
-  { icon: '🌫️', title: '关于', desc: '单向·追云', href: '/about' },
-]
-
 /** 页脚文案 */
 export const footerLines = [
   '来处已不可考。',
