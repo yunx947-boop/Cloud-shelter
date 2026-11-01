@@ -28,8 +28,6 @@ export default function Hero() {
             </p>
             <Link
               href="/clouds"
-              target="_blank"
-              rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-strong"
             >
               进入单行道
