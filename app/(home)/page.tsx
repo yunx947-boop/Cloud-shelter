@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import MiniPlayer from '@/components/MiniPlayer'
+import Link from 'next/link'
 import ChatTeaser from '@/components/ChatTeaser'
 import { getTracks } from '@/lib/tracks'
 import { footerLines } from '@/lib/constants'
@@ -34,7 +34,16 @@ export default async function HomePage() {
                 声音是另一种云
               </p>
               <div className="mt-auto pt-7">
-                <MiniPlayer track={tracks[0]} />
+                <p className="truncate text-sm text-ink">{tracks[0]?.title ?? '还没有曲目'}</p>
+                <p className="mt-0.5 truncate text-xs font-light text-ink-sub">
+                  {tracks[0]?.artist || '去留声机挑一首'}
+                </p>
+                <Link
+                  href="/music"
+                  className="mt-4 inline-block text-xs font-light text-ink-mute transition-colors hover:text-ink"
+                >
+                  进入留声机 →（换页也能继续听）
+                </Link>
               </div>
             </div>
           </Reveal>

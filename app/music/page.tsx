@@ -2,11 +2,8 @@ import Link from 'next/link'
 import AudioPlayer from '@/components/AudioPlayer'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import { getTracks } from '@/lib/tracks'
-
-/** 音乐库页面：本地歌单播放器（留声机），曲目与封面来自 public/audio/ 目录 */
-export default async function MusicPage() {
-  const tracks = await getTracks()
+/** 音乐库页面：留声机完整界面，播放状态由根布局的 PlayerProvider 管 */
+export default function MusicPage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-6 pt-10">
       {/* 顶部返回 + 板块标题 */}
@@ -21,7 +18,7 @@ export default async function MusicPage() {
       </Reveal>
 
       <Reveal delay={0.15}>
-        <AudioPlayer tracks={tracks} />
+        <AudioPlayer />
       </Reveal>
 
       <Footer />

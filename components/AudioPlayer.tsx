@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import type { Track } from '@/lib/tracks'
+import { useState } from 'react'
+import { usePlayer } from '@/components/player/PlayerProvider'
 
 type PlayMode = 'order' | 'shuffle'
 
@@ -27,86 +27,29 @@ const fmt = (s: number) => {
  * 留声机：仿播放器外壳。
  * 菜单栏（顶栏）/ 中间黑胶 / 底部播放条（歌名在最底部）/ 点击展开全部歌曲并显示时长。
  */
-export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
-  const audioRef = useRef<HTMLAudioElement>(null)
-  // 切歌后是否需要自动播
-  const autoPlayNext = useRef(false)
+export default function AudioPlayer() {
+  // 播放状态来自全站 Provider，换页不会中断
+  const {
+    tracks,
+    track,
+    total,
+    index,
+    mode,
+    playing,
+    current,
+    duration,
+    failed,
+    goTo,
+    step,
+    toggle,
+    toggleMode,
+    seekTo,
+  } = usePlayer()
 
-  const [index, setIndex] = useState(0)
-  const [mode, setMode] = useState<PlayMode>('order')
-  const [playing, setPlaying] = useState(false)
-  const [current, setCurrent] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [failed, setFailed] = useState(false)
   // 拖动进度条时临时接管显示值，避免与播放位置互相拉扯
   const [scrub, setScrub] = useState<number | null>(null)
   // 歌单展开 / 收起
   const [open, setOpen] = useState(false)
-
-  const total = tracks.length
-  const track: Track | undefined = tracks[Math.min(index, total - 1)]
-
-  // 切换音源后重新加载
-  useEffect(() => {
-    audioRef.current?.load()
-  }, [index])
-
-
-  const play = () => {
-    audioRef.current?.play().catch(() => setFailed(true))
-  }
-
-  /** 跳到第 i 首；autoplay=false 时只切换不播放 */
-  const goTo = (i: number, autoplay: boolean) => {
-    if (i < 0 || i >= total) return
-    if (i === index) {
-      if (autoplay) play()
-      return
-    }
-    autoPlayNext.current = autoplay
-    setFailed(false)
-    setCurrent(0)
-    setDuration(0)
-    setScrub(null)
-    setIndex(i)
-  }
-
-  /** 随机模式下取一个和当前不同的下标 */
-  const randomIndex = () => {
-    if (total <= 1) return 0
-    let n = index
-    while (n === index) n = Math.floor(Math.random() * total)
-    return n
-  }
-
-  const step = (dir: 1 | -1) => {
-    if (total <= 1) return
-    if (mode === 'shuffle') goTo(randomIndex(), true)
-    else goTo((index + dir + total) % total, true)
-  }
-
-  const handleEnded = () => {
-    setPlaying(false)
-    if (total <= 1) return
-    goTo(mode === 'shuffle' ? randomIndex() : (index + 1) % total, true)
-  }
-
-  const toggleMode = () => setMode((m) => (m === 'order' ? 'shuffle' : 'order'))
-
-  const toggle = () => {
-    const a = audioRef.current
-    if (!a || failed || !track) return
-    if (a.paused) a.play().catch(() => setFailed(true))
-    else a.pause()
-  }
-
-  // 浏览器可能在多个时机才给出真实时长，这里统一捕获（只接受有限正数）
-  const syncDuration = () => {
-    const a = audioRef.current
-    if (!a) return
-    const d = a.duration
-    if (Number.isFinite(d) && d > 0) setDuration(d)
-  }
 
   if (!track) {
     return (
@@ -253,8 +196,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
           onChange={(e) => {
             const v = Number(e.currentTarget.value)
             setScrub(v)
-            const a = audioRef.current
-            if (a && duration > 0) a.currentTime = v
+            if (duration > 0) seekTo(v)
           }}
         />
 
@@ -354,31 +296,6 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
         )}
       </footer>
 
-      {/* 隐藏的音频元素：多事件同步时长 */}
-      <audio
-        ref={audioRef}
-        src={track.src}
-        preload="metadata"
-        className="hidden"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={handleEnded}
-        onLoadedMetadata={syncDuration}
-        onDurationChange={syncDuration}
-        onCanPlay={(e) => {
-          syncDuration()
-          if (autoPlayNext.current) {
-            autoPlayNext.current = false
-            e.currentTarget.play().catch(() => setFailed(true))
-          }
-        }}
-        onPlaying={syncDuration}
-        onTimeUpdate={(e) => {
-          setCurrent(e.currentTarget.currentTime)
-          syncDuration()
-        }}
-        onError={() => setFailed(true)}
-      />
     </div>
   )
 }

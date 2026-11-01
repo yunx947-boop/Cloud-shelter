@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Sidebar, { type SearchDoc, type TagItem } from '@/components/Sidebar'
+import PlayerBar from '@/components/PlayerBar'
 
 /** 站点外壳：桌面端为内容让出左栏宽度，主页保持全屏不加栏 */
 export default function SiteShell({
@@ -32,6 +33,8 @@ export default function SiteShell({
       )}
 
       <div className={isHome ? undefined : 'lg:pl-72 xl:pr-72'}>{children}</div>
+
+      <PlayerBar />
     </>
   )
 }
