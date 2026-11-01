@@ -101,10 +101,20 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-white/50 bg-white/75 px-6 py-8 lg:w-80 backdrop-blur-md transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 overflow-hidden border-r border-white/40 transition-transform duration-300 lg:w-80 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
+        {/* 背景：单行道原图 + 半透明白色蒙版 */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-center"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/45 to-white/60"
+        />
+        <div className="relative z-10 h-full overflow-y-auto px-6 py-8">
         {/* 头像 + 站名 */}
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -129,7 +139,7 @@ export default function Sidebar({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="搜索文章"
-            className="w-full rounded-xl border border-white/60 bg-white/60 px-3.5 py-2.5 pr-16 text-[15px] text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
+            className="w-full rounded-xl border border-white/70 bg-white/70 px-3.5 py-2.5 pr-16 text-[15px] text-ink backdrop-blur-sm placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
           />
           <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-sand/60 px-1.5 py-0.5 font-mono text-[10px] text-ink-faint">
             Ctrl K
@@ -166,10 +176,10 @@ export default function Sidebar({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`block rounded-xl px-3.5 py-2.5 text-[15px] transition-colors ${
+                  className={`block rounded-xl px-3.5 py-2.5 text-[15px] backdrop-blur-sm transition-colors ${
                     isActive(item.href)
-                      ? 'bg-amber-soft font-normal text-ink'
-                      : 'font-light text-ink-sub hover:bg-white/60 hover:text-ink'
+                      ? 'bg-white/85 font-normal text-ink'
+                      : 'bg-white/40 font-light text-ink-sub hover:bg-white/70 hover:text-ink'
                   }`}
                 >
                   {item.label}
@@ -181,8 +191,8 @@ export default function Sidebar({
             return (
               <div key={item.href}>
                 <div
-                  className={`flex items-center rounded-xl transition-colors ${
-                    isActive(item.href) ? 'bg-amber-soft' : 'hover:bg-white/60'
+                  className={`flex items-center rounded-xl backdrop-blur-sm transition-colors ${
+                    isActive(item.href) ? 'bg-white/85' : 'bg-white/40 hover:bg-white/70'
                   }`}
                 >
                   <Link
@@ -212,8 +222,8 @@ export default function Sidebar({
                       href="/clouds"
                       className={`block rounded-lg px-2.5 py-1.5 text-[13px] transition-colors ${
                         pathname === '/clouds'
-                          ? 'font-normal text-ink'
-                          : 'font-light text-ink-sub hover:text-ink'
+                          ? 'bg-white/70 font-normal text-ink'
+                          : 'bg-white/30 font-light text-ink-sub hover:bg-white/60 hover:text-ink'
                       }`}
                     >
                       全部
@@ -227,8 +237,8 @@ export default function Sidebar({
                           href={tagPath}
                           className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[13px] transition-colors ${
                             tagActive
-                              ? 'font-normal text-ink'
-                              : 'font-light text-ink-sub hover:text-ink'
+                              ? 'bg-white/70 font-normal text-ink'
+                              : 'bg-white/30 font-light text-ink-sub hover:bg-white/60 hover:text-ink'
                           }`}
                         >
                           <span>{t.name}</span>
@@ -243,6 +253,7 @@ export default function Sidebar({
           })}
         </nav>
 
+        </div>
       </aside>
     </>
   )
