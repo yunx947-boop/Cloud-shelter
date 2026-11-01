@@ -10,6 +10,8 @@ export interface Article {
   date: string
   /** 封面图：/images/xxx.jpg 或完整外链；没写则用程序化封面 */
   cover?: string
+  /** 内容分类标签，如 ['迷惘', '深夜'] */
+  tags: string[]
   /** 预计阅读分钟数 */
   minutes: number
   body: string
@@ -30,6 +32,14 @@ function normalizeDate(value: unknown) {
     if (m) return `${m[1]}-${m[2]}-${m[3]}`
   }
   return ''
+}
+
+/** frontmatter 的 tags 可能是数组也可能是逗号分隔字符串，统一成去空的字符串数组 */
+function normalizeTags(value: unknown): string[] {
+  const raw = Array.isArray(value) ? value : typeof value === 'string' ? value.split(',') : []
+  return raw
+    .map((t) => (typeof t === 'string' ? t.trim() : ''))
+    .filter((t) => t.length > 0)
 }
 
 /** 中文按 350 字/分钟、英文按 200 词/分钟估算，最少 1 分钟 */
@@ -62,6 +72,7 @@ export function getAllArticles(): Article[] {
         desc: typeof data.desc === 'string' ? data.desc : '',
         date: normalizeDate(data.date),
         cover: typeof data.cover === 'string' && data.cover.trim() ? data.cover.trim() : undefined,
+        tags: normalizeTags(data.tags),
         minutes: readingMinutes(body),
         body,
       }
@@ -77,6 +88,22 @@ export function getArticles(): Article[] {
 /** 按 slug 取单篇文章 */
 export function getArticle(slug: string): Article | undefined {
   return getAllArticles().find((a) => a.slug === slug)
+}
+
+/** 所有标签及文章数，按数量倒序 */
+export function getAllTags(): { name: string; count: number }[] {
+  const counts = new Map<string, number>()
+  for (const a of getAllArticles()) {
+    for (const t of a.tags) counts.set(t, (counts.get(t) ?? 0) + 1)
+  }
+  return [...counts.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((x, y) => y.count - x.count || x.name.localeCompare(y.name))
+}
+
+/** 某个标签下的文章（时间倒序） */
+export function getArticlesByTag(tag: string): Article[] {
+  return getArticles().filter((a) => a.tags.includes(tag))
 }
 
 /** 时间上的上一篇（更早）与下一篇（更晚） */
