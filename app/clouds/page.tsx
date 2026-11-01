@@ -47,38 +47,41 @@ export default function CloudsPage() {
       </Reveal>
 
       {/* 文章时间线：早 → 晚 */}
-      <section className="mx-auto w-full max-w-3xl px-6 pt-10">
+      <section className="mx-auto w-full max-w-4xl px-6 pt-10">
         <ol className="relative ml-1 border-l-2 border-dashed border-amber pl-7">
           {articles.map((a, i) => (
-            <Reveal as="li" key={a.slug} delay={i * 0.05} className="group relative pb-9">
+            <Reveal as="li" key={a.slug} delay={i * 0.05} className="group relative pb-7">
               <span
                 aria-hidden="true"
-                className="absolute -left-[2.15rem] top-1.5 h-3 w-3 rounded-full border-2 border-amber bg-cream transition-colors duration-200 group-hover:border-accent"
+                className="absolute -left-[2.1rem] top-8 h-3 w-3 rounded-full border-2 border-amber bg-cream transition-colors duration-200 group-hover:border-accent"
               />
-              <p className="font-mono text-[11px] tracking-wide text-ink-faint">
-                {a.date.replace(/-/g, '.')}
-                {a.minutes >= 3 && <span className="ml-2">· {a.minutes} 分钟</span>}
-              </p>
-              <Link href={`/article/${a.slug}`} className="mt-2 flex items-start gap-4">
-                <span className="h-16 w-[104px] shrink-0 overflow-hidden rounded-lg bg-sand/30">
+              <Link
+                href={`/article/${a.slug}`}
+                className="glass glass-hover flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:gap-5"
+              >
+                <span className="h-40 w-full shrink-0 overflow-hidden rounded-xl bg-sand/30 sm:h-[112px] sm:w-[180px]">
                   {a.cover ? (
                     <img
                       src={a.cover}
                       alt=""
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   ) : (
                     <CoverArt
                       seed={a.slug}
-                      className="h-full w-full transition-transform duration-300 group-hover:scale-[1.04]"
+                      className="h-full w-full transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   )}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block font-serif text-lg font-normal text-ink transition-colors duration-200 group-hover:text-link">
+                  <span className="font-mono text-xs tracking-wide text-ink-faint">
+                    {a.date.replace(/-/g, '.')}
+                    {a.minutes >= 3 && <span className="ml-2">· {a.minutes} 分钟</span>}
+                  </span>
+                  <span className="mt-2 block font-serif text-xl font-normal tracking-wide text-ink transition-colors duration-200 group-hover:text-link">
                     {a.title}
                   </span>
-                  <span className="mt-1 block text-sm font-light leading-relaxed text-ink-sub">
+                  <span className="mt-2 block text-[15px] font-light leading-relaxed text-ink-sub">
                     {a.desc}
                   </span>
                 </span>
