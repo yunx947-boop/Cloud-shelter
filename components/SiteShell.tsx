@@ -19,7 +19,7 @@ export default function SiteShell({
   return (
     <>
       <Sidebar docs={docs} tags={tags} hidden={isHome} />
-      <div className={isHome ? undefined : 'lg:pl-64'}>{children}</div>
+      <div className={isHome ? undefined : 'lg:pl-80'}>{children}</div>
     </>
   )
 }

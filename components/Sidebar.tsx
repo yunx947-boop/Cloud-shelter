@@ -101,7 +101,7 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto border-r border-white/50 bg-white/75 px-5 py-7 backdrop-blur-md transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-white/50 bg-white/75 px-6 py-8 lg:w-80 backdrop-blur-md transition-transform duration-300 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -110,13 +110,13 @@ export default function Sidebar({
           <Image
             src="/images/about-cat.jpg"
             alt=""
-            width={48}
-            height={48}
-            className="h-12 w-12 rounded-full object-cover"
+            width={56}
+            height={56}
+            className="h-14 w-14 rounded-full object-cover"
           />
           <span>
-            <span className="block font-serif text-base font-normal text-ink">云端庇护所</span>
-            <span className="mt-0.5 block text-[11px] font-light leading-relaxed text-ink-mute">
+            <span className="block font-serif text-lg font-normal tracking-wide text-ink">云端庇护所</span>
+            <span className="mt-1 block text-xs font-light leading-relaxed text-ink-mute">
               单行道上，云在飘
             </span>
           </span>
@@ -129,7 +129,7 @@ export default function Sidebar({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="搜索文章"
-            className="w-full rounded-xl border border-white/60 bg-white/60 px-3 py-2 pr-16 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
+            className="w-full rounded-xl border border-white/60 bg-white/60 px-3.5 py-2.5 pr-16 text-[15px] text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
           />
           <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-sand/60 px-1.5 py-0.5 font-mono text-[10px] text-ink-faint">
             Ctrl K
@@ -159,14 +159,14 @@ export default function Sidebar({
         </div>
 
         {/* 分区导航：单行道带可折叠的分类子菜单 */}
-        <nav className="mt-7 space-y-1">
+        <nav className="mt-8 space-y-1.5">
           {navItems.map((item) => {
             if (item.href !== '/clouds') {
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
+                  className={`block rounded-xl px-3.5 py-2.5 text-[15px] transition-colors ${
                     isActive(item.href)
                       ? 'bg-amber-soft font-normal text-ink'
                       : 'font-light text-ink-sub hover:bg-white/60 hover:text-ink'
@@ -181,13 +181,13 @@ export default function Sidebar({
             return (
               <div key={item.href}>
                 <div
-                  className={`flex items-center rounded-lg transition-colors ${
+                  className={`flex items-center rounded-xl transition-colors ${
                     isActive(item.href) ? 'bg-amber-soft' : 'hover:bg-white/60'
                   }`}
                 >
                   <Link
                     href={item.href}
-                    className={`flex-1 rounded-lg px-3 py-2 text-sm transition-colors ${
+                    className={`flex-1 rounded-xl px-3.5 py-2.5 text-[15px] transition-colors ${
                       roadActive ? 'font-normal text-ink' : 'font-light text-ink-sub'
                     }`}
                   >
@@ -198,7 +198,7 @@ export default function Sidebar({
                     onClick={() => setRoadOpen((v) => !v)}
                     aria-label={roadOpen ? '收起分类' : '展开分类'}
                     aria-expanded={roadOpen}
-                    className="px-2.5 py-2 text-[10px] text-ink-faint transition-colors hover:text-ink"
+                    className="px-3 py-2.5 text-xs text-ink-faint transition-colors hover:text-ink"
                   >
                     <span className={`inline-block transition-transform duration-200 ${roadOpen ? 'rotate-90' : ''}`}>
                       ▸
@@ -207,10 +207,10 @@ export default function Sidebar({
                 </div>
 
                 {roadOpen && (
-                  <div className="ml-3 mt-1 space-y-0.5 border-l border-sand/70 pl-3">
+                  <div className="ml-3.5 mt-1.5 space-y-0.5 border-l border-sand/70 pl-3.5">
                     <Link
                       href="/clouds"
-                      className={`block rounded px-2 py-1 text-xs transition-colors ${
+                      className={`block rounded-lg px-2.5 py-1.5 text-[13px] transition-colors ${
                         pathname === '/clouds'
                           ? 'font-normal text-ink'
                           : 'font-light text-ink-sub hover:text-ink'
@@ -225,14 +225,14 @@ export default function Sidebar({
                         <Link
                           key={t.name}
                           href={tagPath}
-                          className={`flex items-center justify-between rounded px-2 py-1 text-xs transition-colors ${
+                          className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[13px] transition-colors ${
                             tagActive
                               ? 'font-normal text-ink'
                               : 'font-light text-ink-sub hover:text-ink'
                           }`}
                         >
                           <span>{t.name}</span>
-                          <span className="font-mono text-[10px] text-ink-faint">{t.count}</span>
+                          <span className="font-mono text-[11px] text-ink-faint">{t.count}</span>
                         </Link>
                       )
                     })}
