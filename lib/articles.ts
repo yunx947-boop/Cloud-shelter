@@ -8,6 +8,8 @@ export interface Article {
   desc: string
   /** 发布日期 YYYY-MM-DD；frontmatter 没写则为空字符串 */
   date: string
+  /** 封面图：/images/xxx.jpg 或完整外链；没写则用程序化封面 */
+  cover?: string
   /** 预计阅读分钟数 */
   minutes: number
   body: string
@@ -59,6 +61,7 @@ export function getAllArticles(): Article[] {
         title: typeof data.title === 'string' ? data.title : slug,
         desc: typeof data.desc === 'string' ? data.desc : '',
         date: normalizeDate(data.date),
+        cover: typeof data.cover === 'string' && data.cover.trim() ? data.cover.trim() : undefined,
         minutes: readingMinutes(body),
         body,
       }

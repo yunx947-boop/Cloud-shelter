@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import CloudCard from '@/components/CloudCard'
+import CoverArt from '@/components/CoverArt'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
 import { cloudIslands } from '@/lib/constants'
@@ -58,13 +59,30 @@ export default function CloudsPage() {
                 {a.date.replace(/-/g, '.')}
                 {a.minutes >= 3 && <span className="ml-2">· {a.minutes} 分钟</span>}
               </p>
-              <Link
-                href={`/article/${a.slug}`}
-                className="mt-1 block font-serif text-lg font-normal text-ink transition-colors duration-200 group-hover:text-link"
-              >
-                {a.title}
+              <Link href={`/article/${a.slug}`} className="mt-2 flex items-start gap-4">
+                <span className="h-16 w-[104px] shrink-0 overflow-hidden rounded-lg bg-sand/30">
+                  {a.cover ? (
+                    <img
+                      src={a.cover}
+                      alt=""
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <CoverArt
+                      seed={a.slug}
+                      className="h-full w-full transition-transform duration-300 group-hover:scale-[1.04]"
+                    />
+                  )}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-serif text-lg font-normal text-ink transition-colors duration-200 group-hover:text-link">
+                    {a.title}
+                  </span>
+                  <span className="mt-1 block text-sm font-light leading-relaxed text-ink-sub">
+                    {a.desc}
+                  </span>
+                </span>
               </Link>
-              <p className="mt-1 text-sm font-light leading-relaxed text-ink-sub">{a.desc}</p>
             </Reveal>
           ))}
         </ol>

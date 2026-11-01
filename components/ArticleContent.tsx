@@ -40,6 +40,14 @@ export default function ArticleContent({
         </div>
       </Reveal>
 
+      {article.cover && (
+        <Reveal delay={0.1} className="mb-8">
+          <div className="overflow-hidden rounded-2xl">
+            <img src={article.cover} alt="" className="h-auto w-full object-cover" />
+          </div>
+        </Reveal>
+      )}
+
       <Reveal delay={0.15}>
         <article className="glass p-8 sm:p-10">
           <Markdown>{article.body}</Markdown>
