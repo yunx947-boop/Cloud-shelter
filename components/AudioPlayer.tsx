@@ -146,7 +146,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
             onClick={toggleMode}
             disabled={total <= 1}
             aria-label={mode === 'order' ? '当前顺序播放，点击切换随机播放' : '当前随机播放，点击切换顺序播放'}
-            className="flex items-center gap-1.5 rounded-full border border-sand/60 px-3 py-1 text-[11px] font-light text-ink-sub transition-colors hover:border-[#e8d5c4] hover:text-ink disabled:opacity-40"
+            className="flex items-center gap-1.5 rounded-full border border-sand/60 px-3 py-1 text-[11px] font-light text-ink-sub transition-colors hover:border-amber hover:text-ink disabled:opacity-40"
           >
             {mode === 'order' ? (
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -174,8 +174,8 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
             aria-label={open ? '收起播放列表' : '展开播放列表'}
             className={`rounded-full border px-3 py-1 text-[11px] font-light tabular-nums transition-colors ${
               open
-                ? 'border-[#9c8fd0] bg-[#9c8fd0]/10 text-[#9c8fd0]'
-                : 'border-sand/60 text-ink-sub hover:border-[#e8d5c4] hover:text-ink'
+                ? 'border-accent bg-accent-soft text-accent'
+                : 'border-sand/60 text-ink-sub hover:border-amber hover:text-ink'
             }`}
           >
             {open ? '收起' : '歌单'}
@@ -261,7 +261,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
         <div className="flex items-center gap-3">
           {/* 封面缩略图 */}
           <div
-            className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-[#e8d5c4]/40"
+            className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-amber-soft"
             aria-hidden="true"
           >
             {track.cover ? (
@@ -304,7 +304,7 @@ export default function AudioPlayer({ tracks }: { tracks: Track[] }) {
               type="button"
               onClick={toggle}
               aria-label={playing ? '暂停' : '播放'}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#9c8fd0] text-white shadow-sm transition-colors hover:bg-[#8b7dc4]"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-white shadow-sm transition-colors hover:bg-accent-strong"
             >
               {playing ? (
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

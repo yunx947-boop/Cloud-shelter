@@ -13,6 +13,14 @@
   --ink-sub: #6e6e6e; /* 辅助文字 / 描述 */
   --ink-mute: #9c9c9c; /* 有含义但轻的文字 */
   --ink-faint: #b5b5b5; /* 纯装饰：版权、占位、指示 */
+
+  /* 语义色：改这里就能改全站，组件里不要再写死色值 */
+  --accent: #9c8fd0; /* 主色：按钮、进度条、强调 */
+  --accent-strong: #8b7dc4; /* 主色 hover */
+  --accent-soft: rgba(156, 143, 208, 0.1); /* 主色淡底 */
+  --amber-soft: rgba(232, 213, 196, 0.4); /* 暖色淡底 */
+  --link: #6f5b95; /* 正文与标题链接 */
+  --ink-hero: #4d4266; /* 首屏标题的偏紫墨色 */
 }
 
 @layer base {
@@ -41,7 +49,7 @@
   /* 卡片 hover 上浮 */
   .glass-hover:hover {
     transform: translateY(-4px);
-    border-color: #e8d5c4;
+    border-color: var(--amber);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
   }
 }
@@ -151,7 +159,7 @@
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    #9c8fd0 var(--fill, 0%),
+    var(--accent) var(--fill, 0%),
     rgba(138, 138, 138, 0.55) var(--fill, 0%)
   );
 }
@@ -162,7 +170,7 @@
   height: 14px;
   margin-top: -5px;
   border-radius: 9999px;
-  background: #9c8fd0;
+  background: var(--accent);
   border: 2px solid #ffffff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
@@ -175,13 +183,13 @@
 .progress-input::-moz-range-progress {
   height: 4px;
   border-radius: 9999px;
-  background: #9c8fd0;
+  background: var(--accent);
 }
 .progress-input::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 9999px;
-  background: #9c8fd0;
+  background: var(--accent);
   border: 2px solid #ffffff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
@@ -208,7 +216,7 @@
   width: 2px;
   height: 4px;
   border-radius: 9999px;
-  background: #9c8fd0;
+  background: var(--accent);
   opacity: 0.5;
 }
 .eq-bar.is-on {
@@ -269,7 +277,7 @@
   list-style: decimal;
 }
 .markdown blockquote {
-  border-left: 2px solid #e8d5c4;
+  border-left: 2px solid var(--amber);
   padding-left: 1em;
   margin: 0 0 1.25em;
   color: #6e6e6e;
@@ -281,7 +289,7 @@
   font-size: 0.9em;
 }
 .markdown a {
-  color: #6f5b95;
+  color: var(--link);
   text-decoration: underline;
 }
 .markdown strong {
