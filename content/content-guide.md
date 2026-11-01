@@ -2,6 +2,7 @@
 
 > 覆盖「写文章」和「加音乐」两条完整流程。所有命令都可在 PowerShell 里直接粘贴运行。
 > Markdown 语法细节见 `content/markdown-guide.md`，这里只讲**怎么发布**。
+> 想读懂代码本身，看 `content/learning-guide.md`。
 
 ---
 
