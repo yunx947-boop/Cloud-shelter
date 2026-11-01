@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import Link from 'next/link'
+import FeaturedTrack from '@/components/FeaturedTrack'
 import ChatTeaser from '@/components/ChatTeaser'
 import { getTracks } from '@/lib/tracks'
 import { footerLines } from '@/lib/constants'
@@ -10,6 +10,8 @@ import { footerLines } from '@/lib/constants'
  *  完整播放器与聊天面板分别在 /music 与 /chat，主页只负责邀请。 */
 export default async function HomePage() {
   const tracks = await getTracks()
+  // 封面曲：优先 With You Around，找不到就退回第一首
+  const featured = tracks.find((t) => t.id === 'with-you-around') ?? tracks[0]
 
   return (
     <main>
@@ -34,16 +36,7 @@ export default async function HomePage() {
                 声音是另一种云
               </p>
               <div className="mt-auto pt-7">
-                <p className="truncate text-sm text-ink">{tracks[0]?.title ?? '还没有曲目'}</p>
-                <p className="mt-0.5 truncate text-xs font-light text-ink-sub">
-                  {tracks[0]?.artist || '去留声机挑一首'}
-                </p>
-                <Link
-                  href="/music"
-                  className="mt-4 inline-block text-xs font-light text-ink-mute transition-colors hover:text-ink"
-                >
-                  进入留声机 →（换页也能继续听）
-                </Link>
+                <FeaturedTrack track={featured} />
               </div>
             </div>
           </Reveal>

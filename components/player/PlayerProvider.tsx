@@ -38,15 +38,21 @@ export function usePlayer() {
  */
 export default function PlayerProvider({
   tracks,
+  defaultId,
   children,
 }: {
   tracks: Track[]
+  /** 默认选中的曲目 id（封面曲） */
+  defaultId?: string
   children: React.ReactNode
 }) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoPlayNext = useRef(false)
 
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(() => {
+    const i = defaultId ? tracks.findIndex((t) => t.id === defaultId) : -1
+    return i >= 0 ? i : 0
+  })
   const [mode, setMode] = useState<PlayMode>('order')
   const [playing, setPlaying] = useState(false)
   const [started, setStarted] = useState(false)
