@@ -32,7 +32,7 @@ export default function CloudsPage() {
             href="/"
             className="inline-flex items-center gap-1.5 rounded-full bg-white/45 px-3 py-1 text-sm font-light text-ink backdrop-blur-md transition-colors hover:bg-white/60 hover:text-ink-sub"
           >
-            <span aria-hidden="true">←</span> 回到主页
+            <span aria-hidden="true">←</span> 回到云端
           </Link>
         </div>
       </div>
