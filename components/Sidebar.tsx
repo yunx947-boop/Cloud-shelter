@@ -101,14 +101,14 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 overflow-hidden border-r border-white/40 transition-transform duration-300 lg:w-80 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 overflow-hidden border-r border-white/40 transition-transform duration-300 lg:w-72 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* 背景：单行道原图 + 半透明白色蒙版 */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:26%_center]"
+          className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:22%_center]"
         />
         <div
           aria-hidden="true"
