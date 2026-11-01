@@ -108,7 +108,7 @@ export default function Sidebar({
         {/* 背景：单行道原图 + 半透明白色蒙版 */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:35%_center]"
+          className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:26%_center]"
         />
         <div
           aria-hidden="true"
