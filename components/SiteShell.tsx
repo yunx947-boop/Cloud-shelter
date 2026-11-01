@@ -19,7 +19,19 @@ export default function SiteShell({
   return (
     <>
       <Sidebar docs={docs} tags={tags} hidden={isHome} />
-      <div className={isHome ? undefined : 'lg:pl-80'}>{children}</div>
+
+      {/* 右侧对称边栏：暂时只做背景，不放内容 */}
+      {!isHome && (
+        <aside
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-y-0 right-0 z-40 hidden w-80 border-l border-white/40 xl:block"
+        >
+          <div className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:70%_center]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/45 to-white/60" />
+        </aside>
+      )}
+
+      <div className={isHome ? undefined : 'lg:pl-80 xl:pr-80'}>{children}</div>
     </>
   )
 }
