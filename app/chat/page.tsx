@@ -2,7 +2,13 @@ import Link from 'next/link'
 import ChatInterface from '@/components/ChatInterface'
 
 /** 聊天 AI 页面：树洞对话（无页脚，保持类 App 的全屏高度） */
-export default function ChatPage() {
+export default async function ChatPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ draft?: string }>
+}) {
+  // 主页那一行输入会带着草稿跳过来，这里接住它
+  const { draft } = await searchParams
   return (
     <main className="flex h-dvh flex-col px-4 pt-5 pb-5 sm:px-6">
       {/* 顶部返回 + 标题（紧凑） */}
@@ -17,7 +23,7 @@ export default function ChatPage() {
       </header>
 
       {/* 聊天界面：填充剩余高度 */}
-      <ChatInterface />
+      <ChatInterface initialInput={draft} />
     </main>
   )
 }

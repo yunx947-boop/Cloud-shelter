@@ -22,6 +22,8 @@ module.exports = {
           soft: 'var(--accent-soft)',
         },
         'amber-soft': 'var(--amber-soft)',
+        'band-cool': 'var(--band-cool)',
+        'band-warm': 'var(--band-warm)',
         amber: 'var(--amber)',
         link: 'var(--link)',
         'ink-hero': 'var(--ink-hero)',

@@ -13,9 +13,9 @@ interface ChatMessage {
  * - 对话仅保存在当前会话内存中（刷新即清空）
  * - 通过 /api/chat 走 SSE 流式响应
  */
-export default function ChatInterface() {
+export default function ChatInterface({ initialInput = '' }: { initialInput?: string }) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState(initialInput)
   const [isLoading, setIsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false) // 是否显示「正在输入」三点动画
 
