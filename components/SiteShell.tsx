@@ -26,7 +26,7 @@ export default function SiteShell({
           aria-hidden="true"
           className="pointer-events-none fixed inset-y-0 right-0 z-40 hidden w-80 border-l border-white/40 xl:block"
         >
-          <div className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:70%_center]" />
+          <div className="absolute inset-0 bg-[url('/images/clouds-banner.jpg')] bg-cover bg-[position:35%_center]" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/45 to-white/60" />
         </aside>
       )}
