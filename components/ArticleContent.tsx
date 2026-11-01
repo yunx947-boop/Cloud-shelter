@@ -22,7 +22,8 @@ export default function ArticleContent({
   prev,
   next,
 }: ArticleContentProps) {
-  const meta = [article.date.replace(/-/g, '.'), article.minutes ? `约 ${article.minutes} 分钟` : '']
+  // 一分钟左右的短文不显示时长，避免每条都挂一串零信息
+  const meta = [article.date.replace(/-/g, '.'), article.minutes >= 3 ? `约 ${article.minutes} 分钟` : '']
     .filter(Boolean)
     .join(' · ')
 
@@ -35,7 +36,7 @@ export default function ArticleContent({
         <div className="mt-8 text-center">
           <h1 className="text-3xl font-light tracking-wide text-ink">{article.title}</h1>
           <p className="mt-3 text-sm font-light text-ink-sub">{article.desc}</p>
-          {meta && <p className="mt-2 text-xs font-light tracking-wide text-ink-faint">{meta}</p>}
+          {meta && <p className="mt-2 font-mono text-xs font-light tracking-wide text-ink-faint">{meta}</p>}
         </div>
       </Reveal>
 

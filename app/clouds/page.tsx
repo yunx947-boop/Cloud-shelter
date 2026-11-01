@@ -47,19 +47,20 @@ export default function CloudsPage() {
 
       {/* 文章时间线：早 → 晚 */}
       <section className="mx-auto w-full max-w-3xl px-6 pt-10">
-        <ol className="relative ml-1 border-l-2 border-dashed border-[#e8d5c4] pl-7">
+        <ol className="relative ml-1 border-l-2 border-dashed border-amber pl-7">
           {articles.map((a, i) => (
-            <Reveal as="li" key={a.slug} delay={i * 0.05} className="relative pb-9">
+            <Reveal as="li" key={a.slug} delay={i * 0.05} className="group relative pb-9">
               <span
                 aria-hidden="true"
-                className="absolute -left-[2.15rem] top-1.5 h-3 w-3 rounded-full border-2 border-[#e8d5c4] bg-cream"
+                className="absolute -left-[2.15rem] top-1.5 h-3 w-3 rounded-full border-2 border-amber bg-cream transition-colors duration-200 group-hover:border-accent"
               />
-              <p className="text-xs font-light tracking-wide text-ink-faint">
-                {a.date.replace(/-/g, '.')} · 约 {a.minutes} 分钟
+              <p className="font-mono text-[11px] tracking-wide text-ink-faint">
+                {a.date.replace(/-/g, '.')}
+                {a.minutes >= 3 && <span className="ml-2">· {a.minutes} 分钟</span>}
               </p>
               <Link
                 href={`/article/${a.slug}`}
-                className="mt-1 block font-serif text-lg font-normal text-ink transition-colors hover:text-[#6f5b95]"
+                className="mt-1 block font-serif text-lg font-normal text-ink transition-colors duration-200 group-hover:text-link"
               >
                 {a.title}
               </Link>
