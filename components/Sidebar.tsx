@@ -38,12 +38,17 @@ export default function Sidebar({
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [q, setQ] = useState('')
+  const [roadOpen, setRoadOpen] = useState(
+    () => pathname === '/clouds' || pathname.startsWith('/tags'),
+  )
   const inputRef = useRef<HTMLInputElement>(null)
 
   // 换页时收起抽屉、清空搜索
   useEffect(() => {
     setOpen(false)
     setQ('')
+    // 进到单行道或标签页时，自动展开它下面的分类
+    if (pathname === '/clouds' || pathname.startsWith('/tags')) setRoadOpen(true)
   }, [pathname])
 
   // Ctrl/Cmd + K 唤起搜索，Esc 清空
@@ -153,41 +158,91 @@ export default function Sidebar({
           )}
         </div>
 
-        {/* 分区导航 */}
+        {/* 分区导航：单行道带可折叠的分类子菜单 */}
         <nav className="mt-7 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                isActive(item.href)
-                  ? 'bg-amber-soft font-normal text-ink'
-                  : 'font-light text-ink-sub hover:bg-white/60 hover:text-ink'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.href !== '/clouds') {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
+                    isActive(item.href)
+                      ? 'bg-amber-soft font-normal text-ink'
+                      : 'font-light text-ink-sub hover:bg-white/60 hover:text-ink'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            }
+
+            const roadActive = pathname === '/clouds' || pathname.startsWith('/tags')
+            return (
+              <div key={item.href}>
+                <div
+                  className={`flex items-center rounded-lg transition-colors ${
+                    isActive(item.href) ? 'bg-amber-soft' : 'hover:bg-white/60'
+                  }`}
+                >
+                  <Link
+                    href={item.href}
+                    className={`flex-1 rounded-lg px-3 py-2 text-sm transition-colors ${
+                      roadActive ? 'font-normal text-ink' : 'font-light text-ink-sub'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setRoadOpen((v) => !v)}
+                    aria-label={roadOpen ? '收起分类' : '展开分类'}
+                    aria-expanded={roadOpen}
+                    className="px-2.5 py-2 text-[10px] text-ink-faint transition-colors hover:text-ink"
+                  >
+                    <span className={`inline-block transition-transform duration-200 ${roadOpen ? 'rotate-90' : ''}`}>
+                      ▸
+                    </span>
+                  </button>
+                </div>
+
+                {roadOpen && (
+                  <div className="ml-3 mt-1 space-y-0.5 border-l border-sand/70 pl-3">
+                    <Link
+                      href="/clouds"
+                      className={`block rounded px-2 py-1 text-xs transition-colors ${
+                        pathname === '/clouds'
+                          ? 'font-normal text-ink'
+                          : 'font-light text-ink-sub hover:text-ink'
+                      }`}
+                    >
+                      全部
+                    </Link>
+                    {tags.map((t) => {
+                      const tagPath = `/tags/${encodeURIComponent(t.name)}`
+                      const tagActive = pathname === tagPath
+                      return (
+                        <Link
+                          key={t.name}
+                          href={tagPath}
+                          className={`flex items-center justify-between rounded px-2 py-1 text-xs transition-colors ${
+                            tagActive
+                              ? 'font-normal text-ink'
+                              : 'font-light text-ink-sub hover:text-ink'
+                          }`}
+                        >
+                          <span>{t.name}</span>
+                          <span className="font-mono text-[10px] text-ink-faint">{t.count}</span>
+                        </Link>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </nav>
 
-        {/* 内容分类 */}
-        {tags.length > 0 && (
-          <>
-            <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">分类</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {tags.map((t) => (
-                <Link
-                  key={t.name}
-                  href={`/tags/${encodeURIComponent(t.name)}`}
-                  className="rounded-full bg-white/60 px-2.5 py-1 text-[11px] font-light text-ink-sub transition-colors hover:bg-amber-soft hover:text-ink"
-                >
-                  {t.name}
-                  <span className="ml-1 font-mono text-[10px] text-ink-faint">{t.count}</span>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
       </aside>
     </>
   )
