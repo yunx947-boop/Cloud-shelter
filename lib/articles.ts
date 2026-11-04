@@ -10,12 +10,14 @@ export interface Article {
   date: string
   /** 封面图：/images/xxx.jpg 或完整外链；没写则用程序化封面 */
   cover?: string
-  /** 内容分类标签，如 ['迷惘', '深夜'] */
+  /** 内容分类：云与心事、造物手记或沿途日常 */
   tags: string[]
   /** 预计阅读分钟数 */
   minutes: number
   body: string
 }
+
+export const articleCategories = ['云与心事', '造物手记', '沿途日常'] as const
 
 const articlesDir = path.join(process.cwd(), 'content', 'articles')
 
@@ -90,15 +92,16 @@ export function getArticle(slug: string): Article | undefined {
   return getAllArticles().find((a) => a.slug === slug)
 }
 
-/** 所有标签及文章数，按数量倒序 */
+/** 三个固定分类及文章数 */
 export function getAllTags(): { name: string; count: number }[] {
   const counts = new Map<string, number>()
+  for (const category of articleCategories) counts.set(category, 0)
   for (const a of getAllArticles()) {
-    for (const t of a.tags) counts.set(t, (counts.get(t) ?? 0) + 1)
+    for (const t of a.tags) {
+      if (counts.has(t)) counts.set(t, counts.get(t)! + 1)
+    }
   }
-  return [...counts.entries()]
-    .map(([name, count]) => ({ name, count }))
-    .sort((x, y) => y.count - x.count || x.name.localeCompare(y.name))
+  return [...counts.entries()].map(([name, count]) => ({ name, count }))
 }
 
 /** 某个标签下的文章（时间倒序） */

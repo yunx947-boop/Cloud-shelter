@@ -4,10 +4,10 @@ import { notFound } from 'next/navigation'
 import ArticleCard from '@/components/ArticleCard'
 import Footer from '@/components/Footer'
 import Reveal from '@/components/Reveal'
-import { getAllTags, getArticlesByTag } from '@/lib/articles'
+import { articleCategories, getArticlesByTag } from '@/lib/articles'
 
 export function generateStaticParams() {
-  return getAllTags().map((t) => ({ tag: t.name }))
+  return articleCategories.map((tag) => ({ tag }))
 }
 
 export async function generateMetadata({
@@ -36,7 +36,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
     tag = raw
   }
   const articles = getArticlesByTag(tag)
-  if (articles.length === 0) notFound()
+  if (!articleCategories.includes(tag as (typeof articleCategories)[number])) notFound()
 
   return (
     <main className="mx-auto w-full max-w-4xl px-6 pt-12">
@@ -50,13 +50,17 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
         </div>
       </Reveal>
 
-      <ul className="space-y-5 pb-16">
-        {articles.map((a, i) => (
-          <Reveal as="li" key={a.slug} delay={i * 0.05}>
-            <ArticleCard article={a} />
-          </Reveal>
-        ))}
-      </ul>
+      {articles.length > 0 ? (
+        <ul className="space-y-5 pb-16">
+          {articles.map((a, i) => (
+            <Reveal as="li" key={a.slug} delay={i * 0.05}>
+              <ArticleCard article={a} />
+            </Reveal>
+          ))}
+        </ul>
+      ) : (
+        <p className="py-12 text-center font-serif text-sm font-light text-ink-mute">路上还没有脚印。</p>
+      )}
 
       <Footer />
     </main>
