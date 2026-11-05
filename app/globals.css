@@ -54,15 +54,8 @@
   }
 }
 
-/* 进入视口淡入上浮：初始隐藏，data-visible 时显现 */
+/* Content remains visible in server-rendered HTML. */
 .reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
-}
-.reveal[data-visible='true'] {
   opacity: 1;
   transform: translateY(0);
 }

@@ -9,12 +9,12 @@ export default function ArticleCard({ article }: { article: Article }) {
       href={`/article/${article.slug}`}
       className="group glass glass-hover flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:gap-5"
     >
-      <span className="h-40 w-full shrink-0 overflow-hidden rounded-xl bg-sand/30 sm:h-[112px] sm:w-[180px]">
+      <span className="flex h-40 w-full shrink-0 items-center justify-center overflow-hidden rounded-xl bg-sand/30 sm:h-[112px] sm:w-[180px]">
         {article.cover ? (
           <img
             src={article.cover}
             alt=""
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (
           <CoverArt
