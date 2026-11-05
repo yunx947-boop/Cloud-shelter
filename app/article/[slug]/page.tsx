@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import ArticleContent from '@/components/ArticleContent'
-import { getAdjacent, getArticle, getAllArticles } from '@/lib/articles'
+import { getAdjacent, getArticle, getAllSlugs } from '@/lib/articles'
 
 export function generateStaticParams() {
-  return getAllArticles().map((a) => ({ slug: a.slug }))
+  // 含隐藏文章：它们不进列表，但必须能通过链接打开
+  return getAllSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({

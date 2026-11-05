@@ -14,6 +14,8 @@ export interface Article {
   tags: string[]
   /** 预计阅读分钟数 */
   minutes: number
+  /** true = 不进时间线/标签/搜索，只能通过链接直达 */
+  hidden: boolean
   body: string
 }
 
@@ -57,8 +59,8 @@ function oldestFirst(a: Article, b: Article) {
   return a.slug.localeCompare(b.slug)
 }
 
-/** 读取 content/articles 下的全部文章，按时间正序 */
-export function getAllArticles(): Article[] {
+/** 读取 content/articles 下的全部文件（含隐藏），按时间正序 */
+function readAllArticles(): Article[] {
   if (!fs.existsSync(articlesDir)) return []
   return fs
     .readdirSync(articlesDir)
@@ -75,11 +77,22 @@ export function getAllArticles(): Article[] {
         date: normalizeDate(data.date),
         cover: typeof data.cover === 'string' && data.cover.trim() ? data.cover.trim() : undefined,
         tags: normalizeTags(data.tags),
+        hidden: data.hidden === true,
         minutes: readingMinutes(body),
         body,
       }
     })
     .sort(oldestFirst)
+}
+
+/** 可列出的文章：隐藏的不进时间线、标签与搜索 */
+export function getAllArticles(): Article[] {
+  return readAllArticles().filter((a) => !a.hidden)
+}
+
+/** 全部 slug（含隐藏），用于构建期生成静态页 */
+export function getAllSlugs(): string[] {
+  return readAllArticles().map((a) => a.slug)
 }
 
 /** 时间倒序（新文章在前），用于列表展示 */
@@ -89,7 +102,7 @@ export function getArticles(): Article[] {
 
 /** 按 slug 取单篇文章 */
 export function getArticle(slug: string): Article | undefined {
-  return getAllArticles().find((a) => a.slug === slug)
+  return readAllArticles().find((a) => a.slug === slug)
 }
 
 /** 三个固定分类及文章数 */
