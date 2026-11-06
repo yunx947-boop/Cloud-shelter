@@ -32,7 +32,10 @@ export default function SiteShell({
         </aside>
       )}
 
-      <div className={isHome ? undefined : 'lg:pl-72 xl:pr-72'}>{children}</div>
+      <div className={isHome ? undefined : 'lg:pl-72 xl:pr-72'}>
+        {/* 移动端给左上角的汉堡按钮留出高度，避免和页面的返回链接重叠 */}
+        <div className={isHome ? undefined : 'pt-14 lg:pt-0'}>{children}</div>
+      </div>
 
       <PlayerBar />
     </>

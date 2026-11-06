@@ -48,7 +48,7 @@ export default function ArticleContent({
 
       {(prev || next) && (
         <Reveal className="mt-12">
-          <nav className="grid grid-cols-2 gap-4 text-sm">
+          <nav className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
             <div>
               {prev && (
                 <Link

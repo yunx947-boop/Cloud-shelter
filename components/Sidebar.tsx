@@ -115,6 +115,15 @@ export default function Sidebar({
           className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/45 to-white/60"
         />
         <div className="relative z-10 h-full overflow-y-auto px-6 py-8">
+          {/* 移动端关闭按钮 */}
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="关闭导航"
+            className="absolute right-4 top-5 z-20 rounded-full px-2 py-1 text-sm leading-none text-ink-faint transition-colors hover:text-ink lg:hidden"
+          >
+            ✕
+          </button>
         {/* 头像 + 站名 */}
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -139,9 +148,9 @@ export default function Sidebar({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="搜索文章"
-            className="w-full rounded-xl border border-white/70 bg-white/70 px-3.5 py-2.5 pr-16 text-[15px] text-ink backdrop-blur-sm placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
+            className="w-full rounded-xl border border-white/70 bg-white/70 px-3.5 py-2.5 pr-4 text-[15px] text-ink backdrop-blur-sm sm:pr-16 placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-accent"
           />
-          <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-sand/60 px-1.5 py-0.5 font-mono text-[10px] text-ink-faint">
+          <kbd className="pointer-events-none absolute right-2 top-1/2 hidden -translate-y-1/2 rounded border border-sand/60 px-1.5 py-0.5 font-mono text-[10px] text-ink-faint sm:block">
             Ctrl K
           </kbd>
 

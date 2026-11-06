@@ -48,7 +48,7 @@ export default async function RootLayout({
 
   return (
     <html lang="zh-CN" className={`${inter.variable} ${notoSerifSC.variable} bg-cream`}>
-      <body className="min-h-dvh font-sans text-ink antialiased">
+      <body className="min-h-dvh overflow-x-hidden font-sans text-ink antialiased">
         <PlayerProvider tracks={tracks} defaultId="with-you-around">
           <SiteShell docs={docs} tags={tags}>
             {children}

@@ -15,8 +15,8 @@ export default function PlayerBar() {
     <>
       {/* 占位，避免遮住页面底部内容 */}
       <div aria-hidden="true" className="h-16" />
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/50 bg-white/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-2">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/50 bg-white/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">
+        <div className="mx-auto flex max-w-3xl items-center gap-2 px-3 py-2 sm:gap-3 sm:px-4">
           <span className="h-9 w-9 shrink-0 overflow-hidden rounded-md bg-amber-soft">
             {track.cover ? (
               <img src={track.cover} alt="" className="h-full w-full object-cover" />
@@ -49,7 +49,10 @@ export default function PlayerBar() {
             ⏭
           </button>
 
-          <Link href="/music" className="ml-1 shrink-0 text-[11px] font-light text-ink-sub transition-colors hover:text-ink">
+          <Link
+            href="/music"
+            className="ml-1 hidden shrink-0 text-[11px] font-light text-ink-sub transition-colors hover:text-ink sm:inline"
+          >
             留声机 →
           </Link>
         </div>
