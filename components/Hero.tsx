@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal'
 /** 首屏：整屏日落插画横幅 + 左侧毛玻璃文案区 + 紫色按钮 */
 export default function Hero() {
   return (
-    <section className="relative min-h-dvh w-full overflow-hidden">
+    <section className="relative min-h-svh w-full overflow-hidden">
       {/* 背景插画：黄昏云海 + 回眸微笑的白发猫耳娘（整屏铺满） */}
       <Image
         src="/images/hero-sunset.png"
@@ -17,7 +17,7 @@ export default function Hero() {
       />
 
       {/* 左侧文案区：毛玻璃面板，保证在亮背景上可读 */}
-      <div className="relative z-10 flex min-h-dvh items-center px-5 sm:px-8 lg:px-16">
+      <div className="relative z-10 flex min-h-svh items-center px-5 sm:px-8 lg:px-16">
         <Reveal delay={0.1} className="w-full max-w-md">
           <div className="rounded-[28px] border border-white/40 bg-white/35 p-7 shadow-sm backdrop-blur-md sm:p-9">
             <h1 className="font-serif text-[42px] font-medium leading-[1.3] tracking-wide text-ink-hero sm:text-[54px]">

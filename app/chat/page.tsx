@@ -10,7 +10,7 @@ export default async function ChatPage({
   // 主页那一行输入会带着草稿跳过来，这里接住它
   const { draft } = await searchParams
   return (
-    <main className="flex h-[calc(100dvh-3.5rem)] flex-col px-4 pt-4 pb-4 sm:px-6 lg:h-dvh lg:pt-5 lg:pb-5">
+    <main className="flex h-[calc(100svh-3.5rem)] flex-col px-4 pt-4 pb-4 sm:px-6 lg:h-svh lg:pt-5 lg:pb-5">
       {/* 顶部返回 + 标题（紧凑） */}
       <header className="relative mb-4 flex shrink-0 items-center justify-center">
         <Link
