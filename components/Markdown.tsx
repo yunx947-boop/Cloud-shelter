@@ -7,7 +7,19 @@ import remarkGfm from 'remark-gfm'
 export default function Markdown({ children }: { children: string }) {
   return (
     <div className="markdown">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          // 宽表格包一层横向滚动容器，避免撑破页面
+          table: ({ node: _node, ...props }) => (
+            <div className="md-table-scroll">
+              <table {...props} />
+            </div>
+          ),
+        }}
+      >
+        {children}
+      </ReactMarkdown>
     </div>
   )
 }
