@@ -21,8 +21,8 @@ export default function FeaturedTrack({ track }: { track?: Track }) {
   }
 
   return (
-    <Link href="/music" className="group block">
-      <div className="flex items-center gap-3">
+    <Link href="/music" className="group block w-full min-w-0">
+      <div className="flex w-full min-w-0 items-center gap-3">
         <span className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-soft">
           {track.cover ? (
             <img src={track.cover} alt="" className="h-full w-full object-cover" />

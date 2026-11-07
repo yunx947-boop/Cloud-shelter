@@ -16,7 +16,7 @@ export default function ChatTeaser() {
 
   return (
     <form onSubmit={submit}>
-      <div className="flex items-center gap-2 rounded-full border border-white/70 bg-white/65 px-4 py-2">
+      <div className="flex w-full min-w-0 items-center gap-2 rounded-full border border-white/70 bg-white/65 px-3 py-2 sm:px-4">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
